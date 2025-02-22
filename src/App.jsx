@@ -5,7 +5,7 @@ import UserDashboard from './pages/UserDashboard'
 const App = () => {
   return (
     <div>
-      {/* <Dashboard /> */}
+      <Dashboard />
       <UserDashboard />
     </div>
   )
