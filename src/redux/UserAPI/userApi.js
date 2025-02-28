@@ -26,6 +26,17 @@ export const ContactSlice = createApi({
         invalidatesTags: ["tagName"],
       }),
     };
+UpdateUser: builder.mutation({
+        query: (userData) => {
+          return {
+            url: "/apiEndPoint",
+            method: "POST",
+            body: userData,
+          };
+        },
+        invalidatesTags: ["tagName"],
+      }),
+    };
   },
 });
 
