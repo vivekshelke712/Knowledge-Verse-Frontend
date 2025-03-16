@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -49,9 +50,9 @@ const Navbar = () => {
         <a href="#" className="hover:text-green-600">
           Home
         </a>
-        <a href="#" className="hover:text-green-600">
+        <Link to="/aboutus" className="hover:text-green-600">
           About us
-        </a>
+        </Link>
         <a href="#" className="hover:text-green-600">
           Courses
         </a>
