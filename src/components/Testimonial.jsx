@@ -1,35 +1,38 @@
 const Testimonial = () => {
-  const testimonials = [
+  const mentors = [
     {
-      name: "Theresa Webb",
-      role: "Application Support Analyst Lead",
+      name: "Dr. Sneha Patel",
+      role: "Data Science Mentor",
       description:
-        "Former co-founder of Opendoor. Early staff at Spotify and Clearbit.",
-      image: "https://randomuser.me/api/portraits/women/1.jpg",
+        "Guided 5,000+ students with hands-on projects in ML & AI. Ex-Google Developer Expert.",
+      image: "https://randomuser.me/api/portraits/women/21.jpg",
       twitter: "#",
       linkedin: "#",
     },
     {
-      name: "Courtney Henry",
-      role: "Director, Undergraduate Analytics and Planning",
-      description: "Lead engineering teams at Figma, Pitch, and Protocol Labs.",
-      image: "https://randomuser.me/api/portraits/men/2.jpg",
+      name: "Rahul Deshmukh",
+      role: "Full Stack Development Coach",
+      description:
+        "Specializes in React & Spring Boot. Mentor for 30+ hackathon-winning teams.",
+      image: "https://randomuser.me/api/portraits/men/32.jpg",
       twitter: "#",
       linkedin: "#",
     },
     {
-      name: "Albert Flores",
-      role: "Career Educator",
-      description: "Former PM for Linear, Lambda School, and On Deck.",
-      image: "https://randomuser.me/api/portraits/men/3.jpg",
+      name: "Ayesha Khan",
+      role: "UI/UX Design Expert",
+      description:
+        "10+ years in design. Former mentor at Adobe Creative Jam. Loves interactive design.",
+      image: "https://randomuser.me/api/portraits/women/45.jpg",
       twitter: "#",
       linkedin: "#",
     },
     {
-      name: "Marvin McKinney",
-      role: "Co-Op & Internships Program & Operations Manager",
-      description: "Former frontend dev for Linear, Coinbase, and Postscript.",
-      image: "https://randomuser.me/api/portraits/women/4.jpg",
+      name: "Karan Mehta",
+      role: "Cloud Computing Specialist",
+      description:
+        "AWS Certified. Helped 1000+ students get job-ready with cloud project bootcamps.",
+      image: "https://randomuser.me/api/portraits/men/52.jpg",
       twitter: "#",
       linkedin: "#",
     },
@@ -37,15 +40,17 @@ const Testimonial = () => {
 
   return (
     <section className="py-16 bg-white text-center">
-      <h3 className="text-green-500 text-lg font-semibold">Tutors</h3>
-      <h2 className="text-3xl md:text-4xl font-bold mt-2">Meet the Heroes</h2>
+      <h3 className="text-green-500 text-lg font-semibold">Our Mentors</h3>
+      <h2 className="text-3xl md:text-4xl font-bold mt-2">
+        Meet Your Guides at KnowledgeVerse
+      </h2>
       <p className="text-gray-600 max-w-2xl mx-auto mt-2">
-        On Weekend UX, instructors from all over the world instruct millions of
-        students. We offer the knowledge and abilities.
+        Learn from experienced professionals and educators who bring real-world
+        experience and a passion for teaching.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 max-w-6xl mx-auto">
-        {testimonials.map((person, index) => (
+        {mentors.map((person, index) => (
           <div
             key={index}
             className="bg-gray-100 p-6 rounded-lg shadow-md text-center"
@@ -62,12 +67,14 @@ const Testimonial = () => {
               <a
                 href={person.twitter}
                 className="text-gray-600 hover:text-blue-500"
+                aria-label="Twitter"
               >
                 🐦
               </a>
               <a
                 href={person.linkedin}
                 className="text-gray-600 hover:text-blue-700"
+                aria-label="LinkedIn"
               >
                 🔗
               </a>

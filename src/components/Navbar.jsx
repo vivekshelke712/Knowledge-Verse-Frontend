@@ -4,72 +4,104 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // New state for auth
+
+  const handleLogin = () => {
+    // Mock login logic
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    // Mock logout logic
+    setIsLoggedIn(false);
+  };
 
   return (
-    <nav className="flex items-center justify-between px-6 py-3 bg-white shadow-md">
+    <nav className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
       {/* Logo */}
       <div className="flex items-center space-x-2">
-        <div className="text-yellow-500 text-2xl font-bold">H</div>
-        <span className="text-gray-700 font-semibold">WEEKEND</span>
+        <div className="text-blue-600 text-2xl font-bold">🔭</div>
+        <span className="text-gray-800 text-xl font-semibold">
+          Knowledge<span className="text-blue-600">Verse</span>
+        </span>
       </div>
 
-      {/* Search Bar */}
-      <div className="relative flex items-center">
-        <input
-          type="text"
-          placeholder="Want to learn?"
-          className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
+      {/* Navigation Links */}
+      <div className="hidden md:flex items-center space-x-6 text-gray-700 font-medium">
+        <Link to="/" className="hover:text-blue-600 transition">
+          Home
+        </Link>
+        <Link to="/aboutus" className="hover:text-blue-600 transition">
+          About
+        </Link>
+        <Link to="/community" className="hover:text-blue-600 transition">
+          Community
+        </Link>
+        <Link to="/roadmap" className="hover:text-blue-600 transition">
+          RoadMaps
+        </Link>
+        <Link to="/contact" className="hover:text-blue-600 transition">
+          Contact
+        </Link>
+      </div>
+
+      {/* Dropdown */}
+      <div className="relative hidden md:block">
         <button
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="ml-2 flex items-center text-gray-600"
+          className="flex items-center gap-1 text-gray-700 hover:text-blue-600 font-medium transition duration-300 ease-in-out"
         >
-          Explore <FaChevronDown className="ml-1" />
+          Discover
+          <FaChevronDown
+            className={`text-xs transition-transform duration-300 ${
+              isDropdownOpen ? "rotate-180" : ""
+            }`}
+          />
         </button>
 
-        {/* Dropdown Menu */}
         {isDropdownOpen && (
-          <div className="absolute top-full mt-2 w-40 bg-white border rounded-md shadow-lg">
-            <ul className="py-2">
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Option 1
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Option 2
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Option 3
-              </li>
+          <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-200 rounded-xl shadow-xl z-20 animate-fade-in-up">
+            <ul className="py-2 text-sm text-gray-800">
+              {["Learning Paths", "Mentorship", "Hackathons"].map(
+                (item, index) => (
+                  <li
+                    key={index}
+                    className="px-5 py-3 hover:bg-gradient-to-r hover:from-blue-100 hover:to-blue-200 rounded-lg cursor-pointer transition duration-200"
+                  >
+                    {item}
+                  </li>
+                )
+              )}
             </ul>
           </div>
         )}
       </div>
 
-      {/* Navigation Links */}
-      <div className="hidden md:flex space-x-6 text-gray-700">
-        <a href="#" className="hover:text-green-600">
-          Home
-        </a>
-        <Link to="/aboutus" className="hover:text-green-600">
-          About us
-        </Link>
-        <a href="#" className="hover:text-green-600">
-          Courses
-        </a>
-        <a href="#" className="hover:text-green-600">
-          Contact us
-        </a>
-        <a href="#" className="hover:text-green-600">
-          FAQs
-        </a>
-      </div>
-
       {/* Auth Buttons */}
-      <div className="flex space-x-4">
-        <button className="text-gray-700 hover:text-green-600">Sign in</button>
-        <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
-          Create free account
-        </button>
+      <div className="flex space-x-4 items-center">
+        {isLoggedIn ? (
+          <>
+            <Link
+              to="/userDash"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium"
+            >
+              Dashboard
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={handleLogin}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+          >
+            LogIn
+          </button>
+        )}
       </div>
     </nav>
   );

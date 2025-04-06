@@ -1,25 +1,26 @@
-import { FaLaptopCode, FaPalette, FaLayerGroup } from "react-icons/fa";
+import { FaBookOpen, FaBrain, FaChartLine } from "react-icons/fa";
 
 const services = [
   {
-    title: "Interaction Design",
-    description: "Lessons on design that cover the most recent developments.",
-    icon: <FaLaptopCode className="text-green-500 text-2xl" />,
-    hoverIcon: <FaLaptopCode className="text-white text-2xl" />,
+    title: "Smart Topic Management",
+    description:
+      "Organize and explore topics with ease using dynamic tree structures and smart filters.",
+    icon: <FaBookOpen className="text-green-500 text-2xl" />,
+    hoverIcon: <FaBookOpen className="text-white text-2xl" />,
   },
   {
-    title: "UX Design Course",
+    title: "AI-Powered Revisions",
     description:
-      "Classes in development that cover the most recent advancements in web.",
-    icon: <FaPalette className="text-blue-500 text-2xl" />,
-    hoverIcon: <FaPalette className="text-white text-2xl" />,
+      "Get automated reminders and personalized suggestions for timely topic revisions.",
+    icon: <FaBrain className="text-blue-500 text-2xl" />,
+    hoverIcon: <FaBrain className="text-white text-2xl" />,
   },
   {
-    title: "User Interface Design",
+    title: "Progress & Performance",
     description:
-      "User Interface Design courses that cover the most recent trends.",
-    icon: <FaLayerGroup className="text-pink-500 text-2xl" />,
-    hoverIcon: <FaLayerGroup className="text-white text-2xl" />,
+      "Track your growth through detailed analytics and performance insights.",
+    icon: <FaChartLine className="text-pink-500 text-2xl" />,
+    hoverIcon: <FaChartLine className="text-white text-2xl" />,
   },
 ];
 
@@ -27,9 +28,11 @@ const Services = () => {
   return (
     <section className="py-12 bg-white">
       <div className="text-center">
-        <h4 className="text-green-500 font-semibold uppercase">Our Services</h4>
+        <h4 className="text-green-500 font-semibold uppercase">
+          KnowledgeVerse
+        </h4>
         <h2 className="text-3xl font-bold mt-2">
-          Fostering a playful & engaging learning environment
+          Learn Smart. Learn Better. Learn with Ease.
         </h2>
       </div>
 
