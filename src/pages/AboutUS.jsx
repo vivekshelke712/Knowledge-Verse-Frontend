@@ -20,7 +20,7 @@ const AboutUs = () => {
       <section className="flex flex-col md:flex-row gap-12 mb-16 items-center">
         <div className="md:w-1/2">
           <img
-            src="https://images.unsplash.com/photo-1581091012184-5c8d8e50f6f5"
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Knowledge community"
             className="rounded-lg shadow-lg"
           />

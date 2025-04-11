@@ -60,7 +60,9 @@ const Community = () => {
           and thrive.
         </p>
         <button className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">
-          Join the Community
+          <a href="https://discord.com/servers/techsource-club-590251368669773830">
+            Join the Discord Community
+          </a>
         </button>
       </div>
 

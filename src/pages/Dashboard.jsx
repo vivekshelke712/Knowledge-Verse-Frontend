@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+// import NotLoggedIn from "./NotLoggedIn"; // Make sure this path is correct
+
 import {
   FaMedal,
   FaBookOpen,
@@ -17,6 +20,7 @@ import {
   FaComments,
   FaHandshake,
 } from "react-icons/fa";
+import NotLoggedIn from "../components/NotLoggedIn";
 
 const cards = [
   {
@@ -111,7 +115,7 @@ const cards = [
     bg: "bg-slate-100",
   },
   {
-    title: "Discussion Forum",
+    title: "AI Tools",
     description: "Ask questions, share ideas, or start a thread.",
     icon: <FaComments />,
     link: "/dashboard/forum",
@@ -127,6 +131,10 @@ const cards = [
 ];
 
 const Dashboard = () => {
+  const { user } = useSelector((state) => state.user);
+
+  if (!user?.email) return <NotLoggedIn />;
+
   return (
     <div className="min-h-screen px-6 py-10 bg-gradient-to-br from-white via-blue-50 to-white">
       <div className="mb-12 text-center">
@@ -140,7 +148,6 @@ const Dashboard = () => {
         </p>
       </div>
 
-      {/* Grid of Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {cards.map((card, index) => (
           <Link to={card.link} key={index}>

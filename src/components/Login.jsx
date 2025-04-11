@@ -1,46 +1,137 @@
-import react from 'react'
+import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useLoginMutation } from "../redux/api/authApi";
+import toast from "react-hot-toast";
+
+// Validation Schema
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
 
 const Login = () => {
-    return <>
-    <section class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-          <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
-          Flowbite    
-      </a>
-      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  Sign in to your account
-              </h1>
-              <form class="space-y-4 md:space-y-6" action="#">
-                  <div>
-                      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                      <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
-                  </div>
-                  <div>
-                      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                  </div>
-                  <div class="flex items-center justify-between">
-                      <div class="flex items-start">
-                          <div class="flex items-center h-5">
-                            <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
-                          </div>
-                          <div class="ml-3 text-sm">
-                            <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
-                          </div>
-                      </div>
-                      <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
-                  </div>
-                  <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
-                  <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Don’t have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
-                  </p>
-              </form>
+  const navigate = useNavigate();
+  const [login, { isLoading }] = useLoginMutation();
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema,
+    onSubmit: async (values, { setSubmitting, setErrors }) => {
+      try {
+        const response = await login(values).unwrap();
+
+        localStorage.setItem("token", response.token);
+
+        toast.success("Login successful!");
+        navigate("/");
+      } catch (error) {
+        const errorMessage = error?.data?.message || "Invalid credentials.";
+        setErrors({ general: errorMessage });
+        toast.error(errorMessage);
+      }
+
+      setSubmitting(false);
+    },
+  });
+
+  return (
+    <div className="min-h-screen bg-gradient-to-tr from-blue-100 via-white to-blue-200 flex items-center justify-center px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="w-full max-w-md bg-white shadow-2xl rounded-2xl px-8 py-10"
+      >
+        <h2 className="text-4xl font-bold text-blue-700 text-center mb-2 font-serif">
+          Welcome Back
+        </h2>
+        <p className="text-center text-blue-500 mb-6 text-sm">
+          Login to continue your journey with KnowledgeVerse 🚀
+        </p>
+
+        {formik.errors.general && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">
+            {formik.errors.general}
           </div>
-      </div>
-  </div>
-</section> 
-    </>
-}
+        )}
+
+        <form onSubmit={formik.handleSubmit} className="space-y-5">
+          <div>
+            <label className="text-blue-700 text-sm">Email</label>
+            <input
+              type="email"
+              name="email"
+              className={`mt-1 w-full p-3 border rounded-xl focus:ring-2 outline-none ${
+                formik.touched.email && formik.errors.email
+                  ? "border-red-500 focus:ring-red-400"
+                  : "border-blue-200 focus:ring-blue-400"
+              }`}
+              placeholder="you@example.com"
+              {...formik.getFieldProps("email")}
+            />
+            {formik.touched.email && formik.errors.email && (
+              <div className="text-sm text-red-500 mt-1">
+                {formik.errors.email}
+              </div>
+            )}
+          </div>
+
+          <div>
+            <label className="text-blue-700 text-sm">Password</label>
+            <input
+              type="password"
+              name="password"
+              className={`mt-1 w-full p-3 border rounded-xl focus:ring-2 outline-none ${
+                formik.touched.password && formik.errors.password
+                  ? "border-red-500 focus:ring-red-400"
+                  : "border-blue-200 focus:ring-blue-400"
+              }`}
+              placeholder="********"
+              {...formik.getFieldProps("password")}
+            />
+            {formik.touched.password && formik.errors.password && (
+              <div className="text-sm text-red-500 mt-1">
+                {formik.errors.password}
+              </div>
+            )}
+          </div>
+
+          <motion.button
+            whileTap={{ scale: 0.97 }}
+            type="submit"
+            disabled={isLoading}
+            className={`w-full ${
+              isLoading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
+            } transition text-white font-semibold py-3 rounded-xl shadow`}
+          >
+            {isLoading ? "Logging in..." : "Log In"}
+          </motion.button>
+        </form>
+
+        <p className="text-sm text-center text-blue-600 mt-6">
+          New to KnowledgeVerse?{" "}
+          <span
+            className="text-blue-800 font-medium cursor-pointer hover:underline"
+            onClick={() => navigate("/register")}
+          >
+            Register Now
+          </span>
+        </p>
+      </motion.div>
+    </div>
+  );
+};
+
+export default Login;
